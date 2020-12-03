@@ -5,8 +5,8 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://github.com/manavas/ErfanGSIs-VelanGSIs.git
-  ROM_NAME: Flyme
+  ROM_URL: https://media.rex007.workers.dev/0:/DerpFest-11-Official-Alpha-tulip-20201124-1952.zip
+  ROM_NAME: Generic Pixel
   TZ: Asia/Kolkata
   MIR: wet
   ZIP_NAME: Flyme-8

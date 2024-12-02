@@ -10,7 +10,7 @@ env:
   TZ: Asia/Kolkata
   MIR: wet
   ZIP_NAME: HyperOs
-jobs:
+
   build:
     runs-on: ubuntu-latest
 

@@ -5,11 +5,11 @@ on:
     types: [started]
     
 env:
-  ROM_URL: https://media.rex007.workers.dev/0:/DerpFest-11-Official-Alpha-tulip-20201124-1952.zip
-  ROM_NAME: Generic Pixel
+  ROM_URL: https://cdnorg.d.miui.com/OS2.0.5.0.VNAMIXM/aurora_global-ota_full-OS2.0.5.0.VNAMIXM-user-15.0-ca5dc3710f.zip
+  ROM_NAME: MIUI
   TZ: Asia/Kolkata
   MIR: wet
-  ZIP_NAME: Flyme-8
+  ZIP_NAME: HyperOs2
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
 
        
        - name: Clone ErfanGSI Source Code
-         run: git clone --recurse-submodules https://github.com/manavas/ErfanGSIs-VelanGSIs.git ErfanGSIs
+         run: git clone --recurse-submodules https://github.com/hasan1124/ErfanGSIs.git  
        
        - name: Setting up ErfanGSI requirements
          run: |

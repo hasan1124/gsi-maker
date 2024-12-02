@@ -6,7 +6,7 @@ on:
     
 env:
   ROM_URL: https://cdnorg.d.miui.com/OS2.0.5.0.VNAMIXM/aurora_global-ota_full-OS2.0.5.0.VNAMIXM-user-15.0-ca5dc3710f.zip
-  ROM_NAME: MIUI
+  ROM_NAME: Generic
   TZ: Asia/Kolkata
   MIR: wet
   ZIP_NAME: HyperOs2

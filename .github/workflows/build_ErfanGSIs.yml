@@ -1,55 +1,56 @@
-name: Building GSI..
+name: Building Android 14 GSI
 
 on:
-  watch:
-    types: [started]
-    
+  push:
+    branches:
+      - main
+
 env:
   ROM_URL: https://netix.dl.sourceforge.net/project/xiaomi-eu-multilang-miui-roms/xiaomi.eu/HyperOS-STABLE-RELEASES/HyperOS2.0/xiaomi.eu_SUNSTONE_OS2.0.2.0.UMQCNXM_14.zip?viasf=1
   ROM_NAME: Generic
   TZ: Asia/Kolkata
   MIR: wet
   ZIP_NAME: Generic
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-
     steps:
-       - name: Checkout
-         uses: actions/checkout@master
-           
-       - name: Initializing environment
-         run: |
-            sudo -E apt-get -qq update
-            sudo -E apt-get -qq install git openjdk-8-jdk wget
+      - name: Checkout
+        uses: actions/checkout@v3
+          
+      - name: Initializing environment
+        run: |
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install git openjdk-11-jdk wget zip
 
-       
-       - name: Clone ErfanGSI Source Code
-         run: git clone --recurse-submodules https://github.com/hasan1124/ErfanGSIs.git  ErfanGSIs
+      - name: Clone ErfanGSI Source Code
+        run: git clone --recurse-submodules https://github.com/hasan1124/ErfanGSIs.git ErfanGSIs
 
-       - name: Setting up ErfanGSI requirements
-         run: |
-              sudo chmod -R 777 ErfanGSIs
-              cd ErfanGSIs
-              sudo bash setup.sh
-       
-       - name: Download Stock Rom & Generate GSI
-         run: sudo ./ErfanGSIs/url2GSI.sh $ROM_URL $ROM_NAME
-       
-       - name: Zip Aonly and upload 
-         run: |
-              mkdir final
-              sudo chmod -R 777 ErfanGSIs/output
-              zip -r ErfanGSIs/output/$ZIP_NAME-GSI-Aonly.7z ErfanGSIs/output/*-Aonly-*.img
-              curl -sL https://git.io/file-transfer | sh
-              ./transfer $MIR ErfanGSIs/output/$ZIP_NAME-GSI-Aonly.7z          
-       - name: Zip AB and upload 
-         run: |
-              zip -r ErfanGSIs/output/$ZIP_NAME-GSI-AB.7z ErfanGSIs/output/*-AB-*.img
-              ./transfer $MIR ErfanGSIs/output/$ZIP_NAME-GSI-AB.7z      
-       - name: Print build info
-         run: |
-              cat ErfanGSIs/output/*-Aonly-*.txt
-         
-            
+      - name: Setting up ErfanGSI requirements
+        run: |
+          sudo chmod -R 777 ErfanGSIs
+          cd ErfanGSIs
+          sudo bash setup.sh
+
+      - name: Download Stock ROM & Generate GSI
+        run: |
+          sudo ./ErfanGSIs/url2GSI.sh "$ROM_URL" "$ROM_NAME"
+
+      - name: Zip Aonly and upload
+        run: |
+          mkdir -p final
+          sudo chmod -R 777 ErfanGSIs/output
+          zip -r ErfanGSIs/output/"$ZIP_NAME-GSI-Aonly.7z" ErfanGSIs/output/*-Aonly-*.img
+          curl -sL https://git.io/file-transfer | sh
+          ./transfer "$MIR" ErfanGSIs/output/"$ZIP_NAME-GSI-Aonly.7z"
+
+      - name: Zip AB and upload
+        run: |
+          zip -r ErfanGSIs/output/"$ZIP_NAME-GSI-AB.7z" ErfanGSIs/output/*-AB-*.img
+          ./transfer "$MIR" ErfanGSIs/output/"$ZIP_NAME-GSI-AB.7z"
+
+      - name: Print build info
+        run: |
+          cat ErfanGSIs/output/*-Aonly-*.txt
